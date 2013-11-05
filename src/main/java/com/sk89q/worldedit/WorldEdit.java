@@ -390,6 +390,15 @@ public class WorldEdit {
         String[] blockAndExtraData = arg.split("\\|");
         String[] typeAndData = blockAndExtraData[0].split(":", 2);
         String testID = typeAndData[0];
+        if ("hand".equalsIgnoreCase(testID)) {
+            final int itemInHand = player.getItemInHand();
+            if (!player.getWorld().isValidBlockType(itemInHand)) {
+                throw new DisallowedItemException("The item in your hand is not a block.");
+            }
+
+            return new BaseBlock(itemInHand);
+        }
+
         int blockId = -1;
 
         int data = -1;
